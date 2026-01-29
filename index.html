@@ -8,6 +8,49 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
+		
+  
+        
+        document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+        
+        document.addEventListener('keydown', (event) => {
+            if (
+                event.key === "F12" || 
+                (event.ctrlKey && event.key === "u") || 
+                (event.ctrlKey && event.shiftKey && (event.key === "i" || event.key === "j"))
+            ) {
+                event.preventDefault();
+            }
+        });
+
+      
+       (function detectDevTools() {
+    let isDevToolsOpen = false;
+    const threshold = 160; // Umbral para el tamaño del panel
+
+    const checkDevTools = () => {
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (widthThreshold || heightThreshold) {
+            if (!isDevToolsOpen) {
+                const target = document.getElementById('principe');
+                if (target) {
+                    target.innerHTML = ''; 
+                }
+                console.log("Inspeccionar elemento detectado.");
+                isDevToolsOpen = true;
+            }
+        } else {
+            isDevToolsOpen = false; // Restablece si se cierran las herramientas
+        }
+        setTimeout(checkDevTools, 1000);
+    };
+
+    checkDevTools();
+})();
+  
         tailwind.config = {
             darkMode: 'class', // Habilitar modo oscuro por clase
             theme: {
